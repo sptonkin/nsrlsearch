@@ -1,0 +1,18 @@
+sudo: true
+before_install:
+  - curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.9.deb && sudo dpkg -i --force-confnew elasticsearch-5.6.9.deb && sudo service elasticsearch restart
+before_script:
+  - sleep 10
+language: python
+os:
+  - linux
+python:
+  - 2.7
+  - 3.4
+  - 3.5
+  - 3.6
+install:
+  - python setup.py install 
+script: python setup.py test
+notifications:
+  email: sptonkin@outlook.com

@@ -1,0 +1,4 @@
+"ProductCode","ProductName","ProductVersion","OpSystemCode","MfgCode","Language","ApplicationType"
+1,"Nsrl Product 1","1.0","1","1","Unknown","Business"
+2,"Nsrl Product 2","2.0","2","1","Unknown","Business"
+3,"Not Nsrl Product","1.1.1","1","2","Unknown","Business"

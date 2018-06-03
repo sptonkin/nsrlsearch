@@ -1,0 +1,6 @@
+"MfgCode","MfgName"
+"1","Nsrl Manufacturer"
+"2","MfgTwo"
+"3","MfgThree"
+"4","MfgFour"
+"5","glac\xc3\x8c\xc2\x8calo_broke_ingest"
