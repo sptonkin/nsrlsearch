@@ -68,6 +68,11 @@ if CONFIGURED:
         """
         Ingest from specified source. Argument defaults read from config file.
         """
+        # Assert that the souce path must exist.
+        if not os.path.exists(source):
+            print("source path '%s' does not exist" % source, file=sys.stderr)
+            return 1
+
         # Create the specified type of client.
         if server_type == "http":
             client = HttpClient(uri="http://%s" % server)
