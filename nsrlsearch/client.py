@@ -117,9 +117,25 @@ class EsClient(object):
         "file": {
             "_parent": {"type": "product"},
             "properties": {
-                "md5": {"type": "keyword"},
-                "sha1": {"type": "keyword"},
-                "crc32": {"type": "keyword"},
+                "digest": {
+                    "type": "keyword",
+                    "normalizer": "to_lower"
+                },
+                "md5": {
+                    "type": "keyword",
+                    "index": False,
+                    "copy_to": "digest"
+                },
+                "sha1": {
+                    "type": "keyword",
+                     "index": False,
+                     "copy_to": "digest"
+                },
+                "crc32": {
+                    "type": "keyword",
+                    "index": False,
+                    "copy_to": "digest"
+                },
                 "size": {"type": "integer"},
                 "filename": {"type": "keyword"},
                 "os_code": {"type": "keyword"},
@@ -197,6 +213,15 @@ class EsClient(object):
             # Create index with appropriate mappings.
             body = {
                 "settings": {
+                    "analysis": {
+                        "normalizer": {
+                            "to_lower": {
+                                "type": "custom",
+                                "filter": ["lowercase"],
+                                "char_filter": []
+                            }
+                        }
+                    },
                     "number_of_shards": shards,
                     "number_of_replicas": replicas
                 },
@@ -415,10 +440,11 @@ class EsClient(object):
     def get_digest(self, digest,
                    include_filename=False, include_prod_code=False,
                    raw=False):
+        get_digest_type(digest)  # Check digest is valid length.
         doc = {
             'query': {
                 'term': {
-                    get_digest_type(digest): digest.lower()
+                    'digest': digest
                 }
             },
             'size': 1
@@ -438,13 +464,14 @@ class EsClient(object):
         return self.get_digest(digest) is not None
 
     def get_digest_products(self, digest, limit=10000, raw=False):
+        get_digest_type(digest)  # Check digest is valid length.
         doc = {
             'query': {
                 'has_child': {
                     'type': 'file',
                     'query': {
                         'term': {
-                            get_digest_type(digest): digest.lower()
+                            "digest": digest
                         }
                     }
                 }
