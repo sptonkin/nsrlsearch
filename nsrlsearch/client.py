@@ -120,7 +120,7 @@ class EsClient(object):
                 "md5": {"type": "keyword"},
                 "sha1": {"type": "keyword"},
                 "crc32": {"type": "keyword"},
-                "size": {"type": "integer"},
+                "size": {"type": "long"},
                 "filename": {"type": "keyword"},
                 "os_code": {"type": "keyword"},
                 "prod_code": {"type": "keyword"}

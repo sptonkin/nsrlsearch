@@ -99,7 +99,10 @@ def detect_and_decode(line):
         # Could not decode.
         # Try to detect encoding. If that fails, replace problem characters.
         try:
-            utf8_line = line.decode(chardet.detect(line)["encoding"])
+            encoding = chardet.detect(line)["encoding"]
+            if encoding is None:
+                return line.decode("utf-8", errors="replace")
+            utf8_line = line.decode(encoding)
             return utf8_line
         except UnicodeDecodeError:
             return line.decode("utf-8", errors="replace")

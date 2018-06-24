@@ -32,7 +32,7 @@ setup(
     description="Ingest and query NIST NSRL CSV files in Elasticsearch.",
     long_description=open('README.rst').read(),
     license="Apache Software License",
-    install_requires=["elasticsearch>=5.4",
+    install_requires=["elasticsearch>=5.4,<6",
                       "begins>=0.9",
                       "bottle>=0.12",
                       "requests>=2.0",
