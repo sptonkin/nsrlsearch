@@ -102,6 +102,7 @@ class EsClient(object):
 
     PRODFILE_INDEX_MAPPINGS = {
         "product": {
+            "_all": {"enabled": False},
             "properties": {
                 "code": {"type": "keyword"},
                 "name": {"type": "keyword"},
@@ -116,6 +117,7 @@ class EsClient(object):
         },
         "file": {
             "_parent": {"type": "product"},
+            "_all": {"enabled": False},
             "properties": {
                 "md5": {"type": "keyword"},
                 "sha1": {"type": "keyword"},
